@@ -1,0 +1,114 @@
+{
+  "name": "mycoolapp",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": "14"
+  },
+  "scripts": {
+    "analyzeBundle": "npm run build && source-map-explorer 'build/static/js/*.js' --gzip",
+    "build": "react-scripts build",
+    "build:gzip": "npm run build && gzip build/static/**/*.js",
+    "build:prod": "PUBLIC_URL=https://edge.fscdn.org/assets/ npm run build",
+    "heroku-postbuild": "npm run build:prod",
+    "heroku-prebuild": "./heroku-prebuild.sh",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "start": "react-scripts start",
+    "storybook": "start-storybook --port 5009",
+    "storybook:build": "build-storybook -c .storybook -o build",
+    "test": "react-scripts test",
+    "test:ci": "CI=true react-scripts test --coverage"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.28",
+    "@fs/react-scripts": "^6.0.7",
+    "@fs/snow": "^7.3.0-alpha.0",
+    "@fs/startup": "^3.0.1",
+    "@fs/zion-axios": "^2.3.1",
+    "@fs/zion-config": "^2.0.4",
+    "@fs/zion-debug": "^1.0.1",
+    "@fs/zion-error-boundary": "^4.0.3",
+    "@fs/zion-flags": "^1.0.1",
+    "@fs/zion-icon": "^5.4.1",
+    "@fs/zion-locale": "^3.4.0",
+    "@fs/zion-root": "^13.0.0",
+    "@fs/zion-router": "^7.1.0",
+    "@fs/zion-ui": "^9.57.1",
+    "@fs/zion-user": "^4.1.3",
+    "@sentry/browser": "^5.29.0",
+    "express": "^4.17.1",
+    "i18next": "^19.8.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-i18next": "^11.8.3",
+    "workbox-background-sync": "^5.1.3",
+    "workbox-broadcast-update": "^5.1.3",
+    "workbox-cacheable-response": "^5.1.3",
+    "workbox-core": "^5.1.3",
+    "workbox-expiration": "^5.1.3",
+    "workbox-google-analytics": "^5.1.3",
+    "workbox-navigation-preload": "^5.1.3",
+    "workbox-precaching": "^5.1.3",
+    "workbox-range-requests": "^5.1.3",
+    "workbox-routing": "^5.1.3",
+    "workbox-strategies": "^5.1.3",
+    "workbox-streams": "^5.1.3",
+    "yup": "^0.28.5"
+  },
+  "devDependencies": {
+    "@alienfast/i18next-loader": "^1.1.4",
+    "@fs/eslint-config-frontier-react": "^8.3.0",
+    "@fs/storybook-addons": "^4.0.0",
+    "@fs/zion-testing-library": "^7.1.0",
+    "@storybook/addon-a11y": "^5.3.19",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-console": "^1.2.1",
+    "@storybook/addon-docs": "^5.3.19",
+    "@storybook/addon-knobs": "^5.3.19",
+    "@storybook/addon-viewport": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^5.3.19",
+    "@storybook/theming": "^5.3.19",
+    "@testing-library/jest-dom": "^5.11.6",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.15.0",
+    "gzip-cli": "^1.2.0",
+    "husky": "^4.3.5",
+    "lint-staged": "^10.5.3",
+    "source-map-explorer": "^2.5.1",
+    "suppress-exit-code": "~0.1.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@fs/eslint-config-frontier-react"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run lint && CI=true npm test"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "suppress-exit-code npm run lint:fix"
+    ]
+  },
+  "lastFrMigrationTimestamp": 1634064884208
+}
