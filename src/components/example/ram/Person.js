@@ -15,6 +15,8 @@ export default function Person({ name, photoUrl, relationshipDescription }) {
 Person.propTypes = {
   /** This is the name of the person */
   name: PropTypes.string.isRequired,
+  /** url of person's photo */
   photoUrl: PropTypes.string.isRequired,
+  /** person's relationship to user */
   relationshipDescription: PropTypes.string,
 }
