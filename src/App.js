@@ -4,6 +4,7 @@ import { Tab, Tabs } from '@fs/zion-ui'
 import { useFeatureFlag } from '@fs/zion-flags'
 import ErrorBoundary from '@fs/zion-error-boundary'
 import HomePageSkeleton from './components/example/HomePageSkeleton'
+import RelativesAroundMe from './components/example/ram/RelativesAroundMe'
 
 // Dynamically load components to reduce bundle size
 // https://reactjs.org/docs/react-api.html#reactlazy
@@ -23,6 +24,7 @@ function App() {
           <Tab title="Home" to="./" />
           <Tab title="User Info" to="/user" />
           <Tab title="I18n" to="/i18n" />
+          <Tab title="RAM" to="/ram" />
           {displayFlags && <Tab title="flags" to="/flags" />}
         </Tabs>
 
@@ -30,6 +32,7 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <AuthRoute path="/user" component={UserInfoPage} />
           <Route path="/i18n" component={I18nPage} />
+          <AuthRoute path="/ram" component={RelativesAroundMe} />
           {displayFlags && <Route path="/flags" component={FeatureFlagsPage} />}
           <Route component={NotFound} />
         </Switch>
