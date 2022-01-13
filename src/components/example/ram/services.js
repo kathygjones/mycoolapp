@@ -12,16 +12,15 @@ export async function getPortrait({ personId }) {
 }
 
 export async function scanForRelatives({ latitude, longitude, token }) {
-    const { gender, personId, displayName: name } = await getCurrentUser();
-    const { thumbIconUrl: photoUrl } = await getPortrait({ personId });
-  
-    const response = await axios.post("/mobile/api/v1/peers/inproximity", {
-      latitude,
-      longitude,
-      token,
-      gender,
-      name,
-      photoUrl
-    });
-    return response.data.map(result => ({ ...result, loggedInPersonId: personId }));
-  }
+  const { gender, personId, displayName: name } = await getCurrentUser()
+  const { thumbIconUrl: photoUrl } = await getPortrait({ personId })
+  const response = await axios.post('/mobile/api/v1/peers/inproximity', {
+    latitude,
+    longitude,
+    token,
+    gender,
+    name,
+    photoUrl,
+  })
+  return response.data.map((result) => ({ ...result, loggedInPersonId: personId }))
+}

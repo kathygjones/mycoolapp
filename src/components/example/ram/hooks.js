@@ -43,66 +43,57 @@ export function useLocation() {
 export function useScanForRelatives({ latitude, longitude, token }) {
   function reducer(state, action) {
     switch (action.type) {
-      case "SCANNING":
+      case 'SCANNING':
         return {
           ...state,
-          scanning: true
-        };
-      case "RESULTS":
+          scanning: true,
+        }
+      case 'RESULTS':
         return {
           ...state,
           scanning: false,
-          relatives: action.results
-        };
+          relatives: action.results,
+        }
       default:
-        throw new Error(`unexpected action.type in reducer: ${action.type}`);
+        throw new Error(`unexpected action.type in reducer: ${action.type}`)
     }
   }
 
   const [state, dispatch] = React.useReducer(reducer, {
     scanning: false,
-    relatives: []
-  });
+    relatives: [],
+  })
 
   React.useEffect(() => {
-    if (!latitude || !longitude) return () => null;
+    if (!latitude || !longitude) return () => null
 
     function scan() {
-      dispatch({ type: "SCANNING" });
-      scanForRelatives({ latitude, longitude, token }).then(results => {
-        dispatch({ type: "RESULTS", results });
-      });
+      dispatch({ type: 'SCANNING' })
+      scanForRelatives({ latitude, longitude, token }).then((results) => {
+        dispatch({ type: 'RESULTS', results })
+      })
     }
 
-    scan();
-    const interval = setInterval(scan, 5000);
-    return () => clearInterval(interval);
-  }, [latitude, longitude, token]);
+    scan()
+    const interval = setInterval(scan, 5000)
+    return () => clearInterval(interval)
+  }, [latitude, longitude, token])
 
-  return [state, dispatch];
+  return [state, dispatch]
 }
 
-function useLocalStorageState (
-    {
-        key,
-        initialValue,
-        serialize = v => v,
-        deserialize = v => Number(v),
-    }
-) {
-    const [state, setState] = React.useState(() => 
-        deserialize(window.localStorage.getItem(key) || initialValue)
-    )
-    React.useEffect(() => {
-        window.localStorage.setItem(key, serialize(state))
-    }, [key, serialize, state])
+function useLocalStorageState({ key, initialValue, serialize = (v) => v, deserialize = (v) => Number(v) }) {
+  const [state, setState] = React.useState(() => deserialize(window.localStorage.getItem(key) || initialValue))
+  React.useEffect(() => {
+    window.localStorage.setItem(key, serialize(state))
+  }, [key, serialize, state])
 
-    return [state, setState]
+  return [state, setState]
 }
 
-export function useDeviceId () {
-    const [deviceId, setDeviceId] = useLocalStorageState({ key: 'device-id' })
-    if (!deviceId || Number.isNaN(Number(deviceId))) setDeviceId('TESTING')
-    console.log(`Token: ${deviceId}`)
-    return deviceId
+export function useDeviceId() {
+  const [deviceId, setDeviceId] = useLocalStorageState({ key: 'device-id' })
+  if (!deviceId || Number.isNaN(Number(deviceId))) setDeviceId('TESTING')
+  // console.log(`Token: ${deviceId}`)
+  return deviceId
 }
