@@ -36,7 +36,6 @@ const gettingStartedCss = css`
 
 const logInCss = css`
   background-color: ${colors.help.accent2};
-  .secondary};
   padding: 20px 20px 20px 20px;
   text-align: center;
 `
