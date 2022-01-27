@@ -1,7 +1,16 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import { Card, Grid, Cell, Bleed, Separator, colors } from '@fs/zion-ui'
-import { SocialStar } from '@fs/zion-icon/dist/cjs/icons'
+import { Card, Grid, Cell, Bleed, colors } from '@fs/zion-ui'
+import MovieRating from './MovieRating'
+import useFavoriteMovie from './favoriteMovieHooks'
+import MovieLoadingSkeleton from './MovieLoadingSkeleton'
+
+const cardCss = css`
+  width: 400px;
+  border-radius: 5px;
+  margin-right: auto;
+  margin-left: auto;
+`
 
 const imageCss = css`
   width: 100%;
@@ -9,70 +18,59 @@ const imageCss = css`
   padding: 0px;
   margin: 0px;
 `
+
 const overviewCss = css`
   font-size: small;
-  margin-bottom: 5px;
-  padding-bottom: 0px;
-`
-
-// const starCss = css`
-//   margin-left: 50px;
-// `
-const ratingCss = css`
+  margin: 5px 0px;
   padding: 0px;
-  margin: 0px;
   line-height: 100%;
-  color: ${colors.billboard.blue40};
-  font-weight: bolder;
-  border-radius: 5px;
-  background-image: linear-gradient(to bottom right, ${colors.billboard.red10}, white);
-`
-const ratingLabelCss = css`
-  font-size: large;
-  padding-left: 0px;
-  margin-left: 0px;
-  text-align: 'left';
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
 `
 
 const titleCss = css`
   padding-top: 10px;
-  font-size: x-large;
+  font-size: large;
   font-weight: bolder;
   color: ${colors.billboard.blue30};
 `
-export default function FavoriteMovie({ data, name }) {
-  const result = data.results?.find((res) => res.title.toLowerCase() === name.toLowerCase())
-  const { overview, poster_path, title, vote_average } = result
+function FavoriteMovieCard({ data }) {
+  const { id, overview, poster_path, title, vote_average } = data
   const imageUrl = `https://image.tmdb.org/t/p/original/${poster_path}`
+  const movieUrl = `https://themoviedb.org/movie/${id}-${title.split(' ').join('-')}`
 
   return (
-    <div style={{ width: 600 }}>
-      <Card>
+    <div css={cardCss}>
+      <Card billboard to={movieUrl} external>
         <Bleed left bottom>
           <Grid>
-            <Cell columns={4}>
+            <Cell columns={5}>
               <img src={imageUrl} alt="Movie poster" css={imageCss} />
             </Cell>
-            <Cell columns={8}>
-              <h1 css={titleCss}>{title}</h1>
-              <p css={overviewCss}>{overview}</p>
-              <div css={ratingCss}>
-                <Grid columns={8} density="tight">
-                  <Cell columns={1} verticalAlign="middle">
-                    <SocialStar color={colors.billboard.yellow00} size="md" />
-                  </Cell>
-                  <Cell columns={5}>
-                    <p css={ratingLabelCss}>Average user rating:</p>
-                  </Cell>
-                  <Cell columns={2} verticalAlign="middle">
-                    <p style={{ fontSize: 'medium' }}>{vote_average * 10}%</p>
-                  </Cell>
-                </Grid>
-              </div>
+            <Cell columns={7}>
+              <Bleed left>
+                <h1 css={titleCss}>{title}</h1>
+                <p css={overviewCss}>{overview}</p>
+                <MovieRating voteAverage={vote_average} />
+              </Bleed>
             </Cell>
           </Grid>
         </Bleed>
       </Card>
     </div>
+  )
+}
+
+export default function FavoriteMovie({ name }) {
+  const [movieData, status, loadingError] = useFavoriteMovie(name)
+
+  return (
+    <>
+      {status === 'loading' && <MovieLoadingSkeleton />}
+      {status === 'error' && <div>{loadingError.message}</div>}
+      {movieData?.id && <FavoriteMovieCard data={movieData} />}
+    </>
   )
 }
