@@ -31,6 +31,7 @@
     "@fs/zion-debug": "^1.0.1",
     "@fs/zion-error-boundary": "^4.0.3",
     "@fs/zion-flags": "^1.0.1",
+    "@fs/zion-form": "^1.0.0",
     "@fs/zion-frontend-friends": "^3.1.2",
     "@fs/zion-icon": "^5.7.0",
     "@fs/zion-locale": "^3.4.0",
