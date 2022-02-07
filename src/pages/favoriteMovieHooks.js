@@ -1,6 +1,8 @@
 import { useEffect, useReducer } from 'react'
 import { useAxios } from '@fs/zion-axios'
 
+const api_key = process.env.REACT_APP_MOVIE_API_KEY
+
 function favoriteMovieReducer(state, action) {
   switch (action.type) {
     case 'response':
@@ -20,6 +22,25 @@ function favoriteMovieReducer(state, action) {
   }
 }
 
+function genreReducer(state, action) {
+  switch (action.type) {
+    case 'response':
+      return {
+        movieGenres: action.genres,
+        status: 'loaded',
+        loadingError: null,
+      }
+    case 'error':
+      return {
+        movieGenres: null,
+        status: 'error',
+        loadingError: action.error,
+      }
+    default:
+      throw new Error(`No match for action type ${action && action.type}`)
+  }
+}
+
 export default function useFavoriteMovie(movieName) {
   const [state, dispatch] = useReducer(favoriteMovieReducer, {
     movieData: null,
@@ -28,7 +49,6 @@ export default function useFavoriteMovie(movieName) {
   })
 
   const { movieData, status, loadingError } = state
-  const api_key = process.env.REACT_APP_MOVIE_API_KEY
 
   const formattedName = movieName.split(' ').join('+')
 
@@ -50,4 +70,28 @@ export default function useFavoriteMovie(movieName) {
   }, [movieName, data, error])
 
   return [movieData, status, loadingError]
+}
+
+export function useGenres() {
+  const [state, dispatch] = useReducer(genreReducer, {
+    movieGenres: null,
+    status: 'loading',
+    loadingError: null,
+  })
+
+  const { movieGenres: genres, status, loadingError } = state
+
+  const { data, error } = useAxios({
+    url: `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`,
+  })
+
+  useEffect(() => {
+    if (data?.genres) {
+      dispatch({ type: 'response', movieGenres: data.genres })
+    }
+    if (error) {
+      dispatch({ type: 'error', error })
+    }
+  }, [data, error, genres])
+  return [genres, status, loadingError]
 }
