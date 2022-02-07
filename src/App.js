@@ -5,7 +5,6 @@ import { useFeatureFlag } from '@fs/zion-flags'
 import ErrorBoundary from '@fs/zion-error-boundary'
 import HomePageSkeleton from './components/example/HomePageSkeleton'
 import RelativesAroundMe from './components/example/ram/RelativesAroundMe'
-import MyProfile from './pages/MyProfile'
 
 // Dynamically load components to reduce bundle size
 // https://reactjs.org/docs/react-api.html#reactlazy
@@ -14,6 +13,7 @@ const HomePage = React.lazy(() => import('./components/example/HomePage'))
 const UserInfoPage = React.lazy(() => import('./components/example/UserInfoPage'))
 const I18nPage = React.lazy(() => import('./components/example/I18nPage'))
 const FeatureFlagsPage = React.lazy(() => import('./components/example/FeatureFlagsPage'))
+const MyProfile = React.lazy(() => import('./pages/MyProfile'))
 
 function App() {
   const frontier_craTemplate_flagTab = useFeatureFlag('frontier_craTemplate_flagTab')
