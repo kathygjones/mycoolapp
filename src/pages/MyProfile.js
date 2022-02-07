@@ -1,6 +1,6 @@
 import React from 'react'
-import FavoriteMovies from './FavoriteMovies'
+import FavoriteMoviesPage from './FavoriteMoviesPage'
 
 export default function MyProfile() {
-  return <FavoriteMovies />
+  return <FavoriteMoviesPage />
 }

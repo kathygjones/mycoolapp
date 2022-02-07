@@ -1,9 +1,7 @@
 import React from 'react'
 import { css } from '@emotion/core'
 import { Card, Grid, Cell, Bleed, colors } from '@fs/zion-ui'
-import MovieRating from './MovieRating'
-import useFavoriteMovie from './favoriteMovieHooks'
-import MovieLoadingSkeleton from './MovieLoadingSkeleton'
+import { SocialStar } from '@fs/zion-icon/dist/cjs/icons'
 
 const cardCss = css`
   width: 400px;
@@ -36,9 +34,20 @@ const titleCss = css`
   font-weight: bolder;
   color: ${colors.billboard.blue30};
 `
-function FavoriteMovieCard({ data }) {
-  const { id, overview, poster_path, title, vote_average } = data
-  const imageUrl = `https://image.tmdb.org/t/p/original/${poster_path}`
+
+const ratingCss = css`
+  position: absolute;
+  bottom: 10px;
+  margin-right: 10px;
+  line-height: 100%;
+  color: ${colors.billboard.blue40};
+  font-weight: bolder;
+  border-radius: 5px;
+  background-image: linear-gradient(to bottom right, ${colors.billboard.red10}, white);
+`
+
+export default function FavoriteMovie({ id, title, overview, posterPath, voteAverage }) {
+  const imageUrl = `https://image.tmdb.org/t/p/original/${posterPath}`
   const movieUrl = `https://themoviedb.org/movie/${id}-${title.split(' ').join('-')}`
 
   return (
@@ -53,7 +62,7 @@ function FavoriteMovieCard({ data }) {
               <Bleed left>
                 <h1 css={titleCss}>{title}</h1>
                 <p css={overviewCss}>{overview}</p>
-                <MovieRating voteAverage={vote_average} />
+                <MovieRating voteAverage={voteAverage} />
               </Bleed>
             </Cell>
           </Grid>
@@ -63,14 +72,20 @@ function FavoriteMovieCard({ data }) {
   )
 }
 
-export default function FavoriteMovie({ name }) {
-  const [movieData, status, loadingError] = useFavoriteMovie(name)
-
+function MovieRating({ voteAverage }) {
   return (
-    <>
-      {status === 'loading' && <MovieLoadingSkeleton />}
-      {status === 'error' && <div>{loadingError.message}</div>}
-      {movieData?.id && <FavoriteMovieCard data={movieData} />}
-    </>
+    <div css={ratingCss}>
+      <Grid columns={7} density="tight">
+        <Cell columns={1} verticalAlign="middle">
+          <SocialStar color={colors.billboard.yellow00} size="sm" />
+        </Cell>
+        <Cell columns={4}>
+          <p css={{ fontSize: 'medium' }}>Average user rating:</p>
+        </Cell>
+        <Cell columns={2} verticalAlign="middle">
+          <p style={{ fontSize: 'small' }}>{voteAverage * 10}%</p>
+        </Cell>
+      </Grid>
+    </div>
   )
 }
