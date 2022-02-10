@@ -6,24 +6,27 @@ import { css } from '@emotion/core'
 import { useGenres } from './favoriteMovieHooks'
 import FavoriteMovieProvider from './FavoriteMovieProvider'
 import FavoriteMoviesResults from './FavoriteMoviesResults'
+import MovieLoadingSkeleton from './MovieLoadingSkeleton'
 
 const sharedLayoutCss = css`
-  padding: 20px;
   background-image: linear-gradient(to bottom right, ${colors.billboard.blue20}, white);
   box-shadow: inset 0px 0px 5px 5px white;
 `
 
 const desktopLayoutCss = css`
+  padding: 20px;
   margin: 0px 350px;
   border-radius: 50px;
 `
 
 const tabletLayoutCss = css`
+  padding: 20px;
   margin: 0px 100px;
   border-radius: 20px;
 `
 
 const mobileLayoutCss = css`
+  padding: 20px 0px;
   margin: 0px;
   border-radius: 10px;
 `
@@ -75,8 +78,8 @@ export default function FavoriteMoviesPage() {
         </Cell>
       </Grid>
       <Separator />
-      {status === 'loading' && <div>loading . . . </div>}
-      {movieGenres && (
+      {status === 'loading' && <MovieLoadingSkeleton />}
+      {status === 'loaded' && (
         <FavoriteMovieProvider>
           <FavoriteMoviesResults movieGenres={movieGenres} />
         </FavoriteMovieProvider>

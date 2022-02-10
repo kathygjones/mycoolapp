@@ -26,7 +26,7 @@ function genreReducer(state, action) {
   switch (action.type) {
     case 'response':
       return {
-        movieGenres: action.genres,
+        movieGenres: action.movieGenres,
         status: 'loaded',
         loadingError: null,
       }
@@ -79,7 +79,7 @@ export function useGenres() {
     loadingError: null,
   })
 
-  const { movieGenres: genres, status, loadingError } = state
+  const { movieGenres, status, loadingError } = state
 
   const { data, error } = useAxios({
     url: `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`,
@@ -92,6 +92,6 @@ export function useGenres() {
     if (error) {
       dispatch({ type: 'error', error })
     }
-  }, [data, error, genres])
-  return [genres, status, loadingError]
+  }, [data, error, movieGenres])
+  return [movieGenres, status, loadingError]
 }
