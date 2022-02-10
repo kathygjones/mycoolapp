@@ -46,13 +46,15 @@ const ratingCss = css`
   background-image: linear-gradient(to bottom right, ${colors.billboard.red10}, white);
 `
 
-export default function FavoriteMovie({ id, title, overview, posterPath, voteAverage }) {
-  const imageUrl = `https://image.tmdb.org/t/p/original/${posterPath}`
+export default function FavoriteMovie({ movieString }) {
+  const movieObject = JSON.parse(movieString)
+  const { id, title, overview, vote_average, poster_path } = movieObject
+  const imageUrl = `https://image.tmdb.org/t/p/original/${poster_path}`
   const movieUrl = `https://themoviedb.org/movie/${id}-${title.split(' ').join('-')}`
 
   return (
     <div css={cardCss}>
-      <Card billboard to={movieUrl} external>
+      <Card to={movieUrl} external>
         <Bleed left bottom>
           <Grid>
             <Cell columns={5}>
@@ -62,7 +64,7 @@ export default function FavoriteMovie({ id, title, overview, posterPath, voteAve
               <Bleed left>
                 <h1 css={titleCss}>{title}</h1>
                 <p css={overviewCss}>{overview}</p>
-                <MovieRating voteAverage={voteAverage} />
+                <MovieRating voteAverage={vote_average} />
               </Bleed>
             </Cell>
           </Grid>
