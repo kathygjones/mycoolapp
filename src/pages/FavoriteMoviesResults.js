@@ -29,7 +29,7 @@ const headerCss = css`
   margin-bottom: 10px;
   color: ${colors.billboard.blue40};
   text-shadow: 0px 0px 2px ${colors.billboard.yellow00};
-  &[noMovies='true'] {
+  &[nomovies='true'] {
     text-align: center;
   }
 `
@@ -74,7 +74,7 @@ export default function FavoriteMoviesResults({ movieGenres }) {
   return (
     <>
       {faveMovies.length === 0 && (
-        <h1 css={headerCss} noMovies="true">
+        <h1 css={headerCss} nomovies="true">
           No movies yet!
         </h1>
       )}
