@@ -69,7 +69,7 @@ export default function FavoriteMoviesPage() {
           </div>
         </Cell>
         <Cell columns={atSize({ default: 10, lg: 6 })}>
-          <h1 css={headerCss}>My Favorite movies</h1>
+          <h1 css={headerCss}>My Favorite Movies</h1>
         </Cell>
         <Cell columns={atSize({ default: 1, lg: 3 })} verticalAlign="middle">
           <div css={cameraCss} position="left">
