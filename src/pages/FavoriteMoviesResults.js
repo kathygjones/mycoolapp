@@ -78,7 +78,7 @@ export default function FavoriteMoviesResults({ movieGenres }) {
           No movies yet!
         </h1>
       )}
-      {currentMovie && <MovieListLoader currentMovie={currentMovie} movieGenres={movieGenres} />}
+      {currentMovie && <MoviesListLoader currentMovie={currentMovie} movieGenres={movieGenres} />}
       <Separator />
       {!showForm && (
         <div css={billboardButtonCss} hidden={showForm}>
@@ -89,6 +89,7 @@ export default function FavoriteMoviesResults({ movieGenres }) {
         <div css={formCss} shown={showForm.toString()}>
           <TextField
             clearable
+            label="Movie Title"
             ref={focusRef}
             onChange={(evt) => setMovieInput(evt.target.value)}
             onClear={() => setMovieInput('')}
@@ -107,7 +108,7 @@ export default function FavoriteMoviesResults({ movieGenres }) {
   )
 }
 
-function MovieListLoader({ currentMovie, movieGenres }) {
+function MoviesListLoader({ currentMovie, movieGenres }) {
   const { faveMovies, setFaveMovies } = useContext(FavoriteMovieContext)
 
   const [movieData, status, loadingError] = useFavoriteMovie(currentMovie)

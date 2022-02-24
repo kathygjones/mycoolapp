@@ -1,29 +1,26 @@
-/* eslint-disable import/prefer-default-export */
-export const mockGenres = {
-  genres: [
-    { id: 28, name: 'Action' },
-    { id: 12, name: 'Adventure' },
-    { id: 16, name: 'Animation' },
-    { id: 35, name: 'Comedy' },
-    { id: 80, name: 'Crime' },
-    { id: 99, name: 'Documentary' },
-    { id: 18, name: 'Drama' },
-    { id: 10751, name: 'Family' },
-    { id: 14, name: 'Fantasy' },
-    { id: 36, name: 'History' },
-    { id: 27, name: 'Horror' },
-    { id: 10402, name: 'Music' },
-    { id: 9648, name: 'Mystery' },
-    { id: 10749, name: 'Romance' },
-    { id: 878, name: 'Science Fiction' },
-    { id: 10770, name: 'TV Movie' },
-    { id: 53, name: 'Thriller' },
-    { id: 10752, name: 'War' },
-    { id: 37, name: 'Western' },
-  ],
-}
+export const mockMovieGenres = [
+  { id: 28, name: 'Action' },
+  { id: 12, name: 'Adventure' },
+  { id: 16, name: 'Animation' },
+  { id: 35, name: 'Comedy' },
+  { id: 80, name: 'Crime' },
+  { id: 99, name: 'Documentary' },
+  { id: 18, name: 'Drama' },
+  { id: 10751, name: 'Family' },
+  { id: 14, name: 'Fantasy' },
+  { id: 36, name: 'History' },
+  { id: 27, name: 'Horror' },
+  { id: 10402, name: 'Music' },
+  { id: 9648, name: 'Mystery' },
+  { id: 10749, name: 'Romance' },
+  { id: 878, name: 'Science Fiction' },
+  { id: 10770, name: 'TV Movie' },
+  { id: 53, name: 'Thriller' },
+  { id: 10752, name: 'War' },
+  { id: 37, name: 'Western' },
+]
 
-export const mockMovieQueryResponse = {
+const mockMovieQueryResponse = {
   page: 1,
   results: [
     {
@@ -368,4 +365,21 @@ export const mockMovieQueryResponse = {
   ],
   total_pages: 82,
   total_results: 1621,
+}
+
+export default function getMockMovieData({ query }) {
+  const title = query.split('&query=')[0]
+  const titleRegex = new RegExp(`^(an?|the)?\\s*${query}`, 'i')
+
+  const mock = mockMovieQueryResponse.results.find((movie) => titleRegex.test(movie.title))
+
+  if (mock) {
+    return mock.response
+  }
+
+  console.log('Need to mock', query) // eslint-disable-line no-console
+  return {
+    status: 404,
+    statusText: 'Mock not found',
+  }
 }
