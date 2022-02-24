@@ -369,7 +369,7 @@ const mockMovieQueryResponse = {
 
 export default function getMockMovieData({ query }) {
   const title = query.split('&query=')[0]
-  const titleRegex = new RegExp(`^(an?|the)?\\s*${query}`, 'i')
+  const titleRegex = new RegExp(`^(an?|the)?\\s*${title}}`, 'i')
 
   const mock = mockMovieQueryResponse.results.find((movie) => titleRegex.test(movie.title))
 
