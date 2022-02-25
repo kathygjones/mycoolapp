@@ -19,7 +19,9 @@ const formCss = css`
   display: none;
   &[shown='true'] {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 0px;
   }
 `
 
@@ -87,15 +89,17 @@ export default function FavoriteMoviesResults({ movieGenres }) {
       )}
       {showForm && (
         <div css={formCss} shown={showForm.toString()}>
-          <TextField
-            clearable
-            label="Movie Title"
-            ref={focusRef}
-            onChange={(evt) => setMovieInput(evt.target.value)}
-            onClear={() => setMovieInput('')}
-            value={movieInput}
-            placeholder="Type in the title of your favorite movie"
-          />
+          <div style={{ marginBottom: '-17px' }}>
+            <TextField
+              clearable
+              label="Movie Title"
+              ref={focusRef}
+              onChange={(evt) => setMovieInput(evt.target.value)}
+              onClear={() => setMovieInput('')}
+              value={movieInput}
+              placeholder="Type in the title of your favorite movie"
+            />
+          </div>
           <Button emphasis="high" onClick={(event) => handleSubmit(event)}>
             Submit
           </Button>
