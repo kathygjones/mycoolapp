@@ -1,4 +1,5 @@
 import React, { useContext, useCallback, useState, useEffect, useMemo, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { FlowGrid, Separator, TextField, Button, BillboardActionChip, colors, useAtSize } from '@fs/zion-ui'
 import ContentAdd from '@fs/zion-icon/dist/cjs/icons/ContentAdd'
 import { css } from '@emotion/core'
@@ -112,6 +113,14 @@ export default function FavoriteMoviesResults({ movieGenres }) {
   )
 }
 
+FavoriteMoviesResults.propTypes = {
+  /* Object containing id and name for each genre */
+  movieGenres: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
+}
+
 function MoviesListLoader({ currentMovie, movieGenres }) {
   const { faveMovies, setFaveMovies } = useContext(FavoriteMovieContext)
 
@@ -136,6 +145,16 @@ function MoviesListLoader({ currentMovie, movieGenres }) {
       {movieData?.id && <MoviesList />}
     </>
   )
+}
+
+MoviesListLoader.propTypes = {
+  /* title of movie, passed in by parent component */
+  currentMovie: PropTypes.string.isRequired,
+  /* movie genres object passed in by parent component */
+  movieGenres: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
 }
 
 function MoviesList() {

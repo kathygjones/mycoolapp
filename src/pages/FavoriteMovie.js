@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { css } from '@emotion/core'
 import { Card, Grid, Cell, Bleed, colors } from '@fs/zion-ui'
 import { SocialStar } from '@fs/zion-icon/dist/cjs/icons'
@@ -74,6 +75,11 @@ export default function FavoriteMovie({ movieString }) {
   )
 }
 
+FavoriteMovie.propTypes = {
+  /* Stringified movie object, to be JSON parsed */
+  movieString: PropTypes.string.isRequired,
+}
+
 function MovieRating({ voteAverage }) {
   return (
     <div css={ratingCss}>
@@ -90,4 +96,9 @@ function MovieRating({ voteAverage }) {
       </Grid>
     </div>
   )
+}
+
+MovieRating.propTypes = {
+  /* vote  average passed down from parent component */
+  voteAverage: PropTypes.number.isRequired,
 }
