@@ -1,5 +1,5 @@
 import React from 'react'
-import { Carousel, CarouselSlide } from '@fs/zion-ui'
+import { Carousel, CarouselSlide, useAtSize } from '@fs/zion-ui'
 import { css } from '@emotion/core'
 import FavoriteMoviesPage from './FavoriteMoviesPage'
 
@@ -13,8 +13,19 @@ const imageKeys = images.keys()
 const imageFiles = importAll(images)
 
 const carouselCss = css`
-  height: 500px;
   width: auto;
+`
+
+const desktopHeight = css`
+  height: 500px;
+`
+
+const tabletHeight = css`
+  height: 1000px;
+`
+
+const mobileHeight = css`
+  height: 500px;
 `
 
 const descriptions = [
@@ -27,6 +38,8 @@ const descriptions = [
 ]
 
 export default function MyProfile() {
+  const atSize = useAtSize()
+  const carouselHeight = atSize({ default: mobileHeight, lg: tabletHeight, xxl: desktopHeight })
   const capitalized = imageKeys.map((image) =>
     image
       .slice(3)
@@ -38,7 +51,7 @@ export default function MyProfile() {
 
   return (
     <>
-      <div css={carouselCss}>
+      <div css={[carouselCss, carouselHeight]}>
         <Carousel>
           {imageFiles.map((image, index) => (
             <CarouselSlide

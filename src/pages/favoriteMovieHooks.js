@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from 'react'
 import { useAxios } from '@fs/zion-axios'
 
+// found  method for storing API key here: https://stackoverflow.com/a/50457996
 const api_key = process.env.REACT_APP_MOVIE_API_KEY
 
 function favoriteMovieReducer(state, action) {
