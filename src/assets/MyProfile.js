@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Carousel, CarouselSlide, useAtSize } from '@fs/zion-ui'
 import { css } from '@emotion/core'
-import FavoriteMoviesPage from './FavoriteMoviesPage'
+// import FavoriteMoviesPage from '../components/favorite_movies/FavoriteMoviesPage'
 
 function importAll(r) {
   return r.keys().map(r)
@@ -40,6 +40,8 @@ const descriptions = [
 export default function MyProfile() {
   const atSize = useAtSize()
   const carouselHeight = atSize({ default: mobileHeight, lg: tabletHeight, xxl: desktopHeight })
+  const hexString = useRef('#')
+
   const capitalized = imageKeys.map((image) =>
     image
       .slice(3)
@@ -48,6 +50,12 @@ export default function MyProfile() {
       .map((word) => word[0].toUpperCase() + word.slice(1))
       .join(' ')
   )
+
+  useEffect(() => {
+    for (let i = 0; i < 3; i++) {
+      hexString.current += Math.floor(Math.random() * 256).toString(16)
+    }
+  }, [hexString])
 
   return (
     <>
@@ -64,7 +72,7 @@ export default function MyProfile() {
           ))}
         </Carousel>
       </div>
-      <FavoriteMoviesPage />
+      {/* <FavoriteMoviesPage randomColor={hexString} /> */}
     </>
   )
 }

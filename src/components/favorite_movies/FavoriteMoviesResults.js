@@ -115,10 +115,12 @@ export default function FavoriteMoviesResults({ movieGenres }) {
 
 FavoriteMoviesResults.propTypes = {
   /* Object containing id and name for each genre */
-  movieGenres: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-  }).isRequired,
+  movieGenres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    })
+  ).isRequired,
 }
 
 function MoviesListLoader({ currentMovie, movieGenres }) {

@@ -20,7 +20,7 @@ export const mockMovieGenres = [
   { id: 37, name: 'Western' },
 ]
 
-const mockMovieQueryResponse = {
+export const mockMovieQueryResponse = {
   page: 1,
   results: [
     {

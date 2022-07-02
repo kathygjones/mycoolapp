@@ -3,7 +3,7 @@ import { zionRender, screen, waitFor, fireEvent, userEvent } from '@fs/zion-test
 import axios from '@fs/zion-axios'
 import FavoriteMoviesResults from './FavoriteMoviesResults'
 import FavoriteMovieProvider from './FavoriteMovieProvider'
-import getMockMovieData, { mockMovieGenres } from './__fixtures__/mockMovieData'
+import getMockMovieData, { mockMovieGenres } from '../../assets/__fixtures__/mockMovieData'
 
 beforeEach(() => {
   axios.get = jest.fn((url) => Promise.resolve(getMockMovieData({ url })))

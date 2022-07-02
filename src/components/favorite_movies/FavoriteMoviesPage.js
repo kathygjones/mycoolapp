@@ -9,8 +9,8 @@ import FavoriteMoviesResults from './FavoriteMoviesResults'
 import MovieLoadingSkeleton from './MovieLoadingSkeleton'
 
 const sharedLayoutCss = css`
-  background-image: linear-gradient(to bottom right, ${colors.billboard.blue20}, white);
-  box-shadow: inset 0px 0px 5px 5px white;
+  margin-top: 50px;
+  box-shadow: 0px 0px 10px white inset;
 `
 
 const desktopLayoutCss = css`
@@ -47,7 +47,7 @@ const cameraCss = css`
   }
 `
 
-export default function FavoriteMoviesPage() {
+export default function FavoriteMoviesPage({ randomColor }) {
   const atSize = useAtSize()
   const desktopOnly = atSize({ default: false, xxl: true })
   const tabletDesktop = atSize({ default: false, lg: true })
@@ -61,30 +61,35 @@ export default function FavoriteMoviesPage() {
   const [movieGenres, status, loadingError] = useGenres()
 
   return (
-    <LayoutBand css={[layoutCss, sharedLayoutCss]}>
-      <Grid>
-        <Cell columns={atSize({ default: 1, lg: 3 })} verticalAlign="middle">
-          <div css={cameraCss} position="right">
-            <ThingMovie />
-          </div>
-        </Cell>
-        <Cell columns={atSize({ default: 10, lg: 6 })}>
-          <h1 css={headerCss}>My Favorite Movies</h1>
-        </Cell>
-        <Cell columns={atSize({ default: 1, lg: 3 })} verticalAlign="middle">
-          <div css={cameraCss} position="left">
-            <ThingMovie />
-          </div>
-        </Cell>
-      </Grid>
-      <Separator />
-      {status === 'loading' && <MovieLoadingSkeleton />}
-      {status === 'loaded' && (
-        <FavoriteMovieProvider>
-          <FavoriteMoviesResults movieGenres={movieGenres} />
-        </FavoriteMovieProvider>
-      )}
-      {status === 'error' && <div>{loadingError}</div>}
-    </LayoutBand>
+    <div
+      css={[layoutCss, sharedLayoutCss]}
+      style={{ backgroundImage: `linear-gradient(to bottom right, ${randomColor.current}, white)` }}
+    >
+      <LayoutBand>
+        <Grid>
+          <Cell columns={atSize({ default: 1, lg: 3 })} verticalAlign="middle">
+            <div css={cameraCss} position="right">
+              <ThingMovie />
+            </div>
+          </Cell>
+          <Cell columns={atSize({ default: 10, lg: 6 })}>
+            <h1 css={headerCss}>My Favorite Movies</h1>
+          </Cell>
+          <Cell columns={atSize({ default: 1, lg: 3 })} verticalAlign="middle">
+            <div css={cameraCss} position="left">
+              <ThingMovie />
+            </div>
+          </Cell>
+        </Grid>
+        <Separator />
+        {status === 'loading' && <MovieLoadingSkeleton />}
+        {status === 'loaded' && (
+          <FavoriteMovieProvider>
+            <FavoriteMoviesResults movieGenres={movieGenres} />
+          </FavoriteMovieProvider>
+        )}
+        {status === 'error' && <div>{loadingError}</div>}
+      </LayoutBand>
+    </div>
   )
 }
