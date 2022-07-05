@@ -88,7 +88,7 @@ export default function FavoriteMoviesPage({ randomColor }) {
             <FavoriteMoviesResults movieGenres={movieGenres} />
           </FavoriteMovieProvider>
         )}
-        {status === 'error' && <div>{loadingError}</div>}
+        {status === 'error' && <div>{loadingError.message}</div>}
       </LayoutBand>
     </div>
   )

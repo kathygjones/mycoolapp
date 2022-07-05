@@ -14,9 +14,6 @@ const UserInfoPage = React.lazy(() => import('./components/example/UserInfoPage'
 const I18nPage = React.lazy(() => import('./components/example/I18nPage'))
 const FeatureFlagsPage = React.lazy(() => import('./components/example/FeatureFlagsPage'))
 const MyProfile = React.lazy(() => import('./assets/MyProfile'))
-const FavoriteMovies = React.lazy(() => import('./components/favorite_movies/FavoriteMoviesPage'))
-const VendingMachine = React.lazy(() => import('./components/vending_machine/VendingMachine'))
-const DadJokes = React.lazy(() => import('./components/dad_jokes/src/DadJokes'))
 
 function App() {
   const frontier_craTemplate_flagTab = useFeatureFlag('frontier_craTemplate_flagTab')
@@ -38,13 +35,10 @@ function App() {
           <AuthRoute path="/user" component={UserInfoPage} />
           <Route path="/i18n" component={I18nPage} />
           <AuthRoute path="/ram" component={RelativesAroundMe} />
-          <Route exact path="/profile" component={MyProfile}>
-            <Switch>
-              <Route path="/profile/favorite-movies" component={FavoriteMovies} />
-              <AuthRoute path="/profile/vending-machine" component={VendingMachine} />
-              <Route path="/profile/dad-jokes" component={DadJokes} />
-            </Switch>
+          <Route path="/profile">
+            <MyProfile />
           </Route>
+
           {displayFlags && <Route path="/flags" component={FeatureFlagsPage} />}
           <Route component={NotFound} />
         </Switch>

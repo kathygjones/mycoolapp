@@ -2,7 +2,7 @@ import { useEffect, useReducer } from 'react'
 import { useAxios } from '@fs/zion-axios'
 
 // found  method for storing API key here: https://stackoverflow.com/a/50457996
-const api_key = process.env.REACT_APP_MOVIE_API_KEY
+const api_key = '0dfd119204a5482b09c1cbfbadaaa7c8'
 
 function favoriteMovieReducer(state, action) {
   switch (action.type) {
@@ -74,6 +74,7 @@ export default function useFavoriteMovie(movieName) {
 }
 
 export function useGenres() {
+  console.log('key:', api_key)
   const [state, dispatch] = useReducer(genreReducer, {
     movieGenres: null,
     status: 'loading',
