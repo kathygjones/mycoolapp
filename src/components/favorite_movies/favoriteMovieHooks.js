@@ -74,7 +74,6 @@ export default function useFavoriteMovie(movieName) {
 }
 
 export function useGenres() {
-  console.log('key:', api_key)
   const [state, dispatch] = useReducer(genreReducer, {
     movieGenres: null,
     status: 'loading',
