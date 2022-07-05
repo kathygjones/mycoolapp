@@ -35,9 +35,9 @@ function App() {
           <AuthRoute path="/user" component={UserInfoPage} />
           <Route path="/i18n" component={I18nPage} />
           <AuthRoute path="/ram" component={RelativesAroundMe} />
-          <Route path="/profile">
+          <AuthRoute path="/profile">
             <MyProfile />
-          </Route>
+          </AuthRoute>
 
           {displayFlags && <Route path="/flags" component={FeatureFlagsPage} />}
           <Route component={NotFound} />

@@ -1,30 +1,32 @@
-import React, { useCallback, useRef } from 'react'
+import React from 'react'
 import { Switch, Route, Link, useRouteMatch } from '@fs/zion-router'
 import { css } from '@emotion/core'
 import { Cell, Grid } from '@fs/zion-ui'
 import ComponentWrapper from './ComponentWrapper'
 
+const navLinksCss = css`
+  list-style: none;
+  li {
+    padding: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+`
 export default function MyProfile() {
   const { path, url } = useRouteMatch()
-  const hexString = useRef('#')
-
-  const generateHexString = useCallback(() => {
-    while (hexString.current.length <= 7) {
-      hexString.current += Math.floor(Math.random() * 256).toString(16)
-    }
-  }, [hexString])
 
   return (
     <Grid>
-      <Cell columns={4}>
-        <ul>
+      <Cell columns={3}>
+        <ul css={navLinksCss}>
+          <li>
+            <Link to={`${url}`}>About Me</Link>
+          </li>
           <li>
             <Link to={`${url}/my-family`}>My Family</Link>
           </li>
           <li>
-            <Link to={`${url}/favorite-movies`} onClick={generateHexString}>
-              My Favorite Movies
-            </Link>
+            <Link to={`${url}/favorite-movies`}>My Favorite Movies</Link>
           </li>
           <li>
             <Link to={`${url}/dad-jokes`}>Dad Jokes</Link>
@@ -34,13 +36,13 @@ export default function MyProfile() {
           </li>
         </ul>
       </Cell>
-      <Cell columns={8}>
+      <Cell columns={9}>
         <Switch>
           <Route exact path={path}>
             <h1>Please select something</h1>
           </Route>
           <Route path={`${path}/:selectionId`}>
-            <ComponentWrapper hexString={hexString.current} />
+            <ComponentWrapper />
           </Route>
         </Switch>
       </Cell>
