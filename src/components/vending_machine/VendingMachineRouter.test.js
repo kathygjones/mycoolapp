@@ -1,6 +1,6 @@
 import React from 'react'
 import { zionRender, screen } from '@fs/zion-testing-library'
-import VendingMachine from './VendingMachine'
+import VendingMachine from './VendingMachineRouter'
 
 test('VendingMachine exists', async () => {
   expect(VendingMachine).toBeInstanceOf(Function)

@@ -32,7 +32,7 @@ function App() {
 
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <AuthRoute path="/user" component={UserInfoPage} />
+          <Route path="/user" component={UserInfoPage} />
           <Route path="/i18n" component={I18nPage} />
           <AuthRoute path="/ram" component={RelativesAroundMe} />
           <AuthRoute path="/profile">

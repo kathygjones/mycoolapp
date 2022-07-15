@@ -1,6 +1,6 @@
 import React from 'react'
 
-import VendingMachine from './VendingMachine'
+import VendingMachine from './VendingMachineRouter'
 
 export default {
   title: 'VendingMachine',

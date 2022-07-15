@@ -12,18 +12,30 @@ import {
   PersonBlock,
   Separator,
   CollapsableListItem,
+  BillboardText,
+  colors,
 } from '@fs/zion-ui'
 import { NoticeLoading } from '@fs/zion-icon'
 import ErrorBoundary from '@fs/zion-error-boundary'
 import usePersonDetails from './personDetailsService'
 import usePersonPortrait from './portraitService'
 import ResponsiveDebug from './ResponsiveDebug'
+import UserInfoLoadingSkeleton from './UserInfoLoadingSkeleton'
 
 export default function UserInfoPage() {
   const [t] = useTranslation()
   const user = useUser()
 
-  if (!user.signedIn) return <NoticeLoading />
+  if (!user.signedIn)
+    return (
+      <BillboardText primaryColor={colors.billboard.red20}>
+        <HeaderBlock size="xl" heading="You must be signed in to view this content" overline="Whoops!" />
+      </BillboardText>
+    )
+
+  if (user.userLoading) {
+    return <UserInfoLoadingSkeleton />
+  }
 
   return (
     <LayoutBand>
