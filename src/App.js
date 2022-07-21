@@ -13,7 +13,7 @@ const HomePage = React.lazy(() => import('./components/example/HomePage'))
 const UserInfoPage = React.lazy(() => import('./components/example/UserInfoPage'))
 const I18nPage = React.lazy(() => import('./components/example/I18nPage'))
 const FeatureFlagsPage = React.lazy(() => import('./components/example/FeatureFlagsPage'))
-const MyProfile = React.lazy(() => import('./assets/MyProfile'))
+const MyProfile = React.lazy(() => import('./components/MyProfile'))
 
 function App() {
   const frontier_craTemplate_flagTab = useFeatureFlag('frontier_craTemplate_flagTab')

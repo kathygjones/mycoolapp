@@ -1,10 +1,10 @@
 import React from 'react'
 
-import VendingMachine from './VendingMachineRouter'
+import VendingMachineRouter from './VendingMachineRouter'
 
 export default {
-  title: 'VendingMachine',
-  component: VendingMachine,
+  title: 'VendingMachineRouter',
+  component: VendingMachineRouter,
 }
 
-export const Basic = () => <VendingMachine />
+export const Basic = () => <VendingMachineRouter />

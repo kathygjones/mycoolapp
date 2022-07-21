@@ -22,6 +22,7 @@ import PurposeStatementGenerator from './PurposeStatementGenerator'
 import WagonWheel from './WagonWheel'
 import ResponsiveDebug from './ResponsiveDebug'
 import RequireSignedInUser from './RequireSignedInUser'
+import useSessionData from '../profileHooks'
 
 const debug = zionDebug('frontier:cra:example')
 const WagonWheelControl = React.lazy(() => import('./WagonWheelControl'))
@@ -64,6 +65,7 @@ const HomePage = () => {
   const [wheelColor, setWheelColor] = React.useState(colors.text.primary)
   const [wheelSpeed, setWheelSpeed] = React.useState('0s')
 
+  const sessionId = useSessionData()
   const handleWheelSpeedChange = React.useCallback(
     (speed) => {
       debug(`changing wheel animation speed: ${speed}`)
@@ -164,6 +166,7 @@ const HomePage = () => {
       </Suspense>
 
       <ResponsiveDebug />
+      <div>{sessionId}</div>
     </LayoutBand>
   )
 }

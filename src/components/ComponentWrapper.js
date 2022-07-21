@@ -1,11 +1,11 @@
 import React, { Suspense, useEffect, useRef } from 'react'
 import { useParams } from '@fs/zion-router'
-import MyFamily from '../components/my_family/src/MyFamily'
-import DadJokes from '../components/dad_jokes/src/DadJokes'
-import MovieLoadingSkeleton from '../components/favorite_movies/MovieLoadingSkeleton'
-import VendingMachine from '../components/vending_machine/VendingMachine'
+import MyFamily from './my_family/src/MyFamily'
+import DadJokes from './dad_jokes/src/DadJokes'
+import MovieLoadingSkeleton from './favorite_movies/MovieLoadingSkeleton'
+import VendingMachineRouter from './vending_machine/VendingMachineRouter'
 
-const FavoriteMovies = React.lazy(() => import('../components/favorite_movies/FavoriteMoviesPage'))
+const FavoriteMovies = React.lazy(() => import('./favorite_movies/FavoriteMoviesPage'))
 
 export default function ComponentWrapper() {
   const { selectionId } = useParams()
@@ -29,7 +29,7 @@ export default function ComponentWrapper() {
         </Suspense>
       )
     case 'vending-machine':
-      return <VendingMachine />
+      return <VendingMachineRouter />
     default:
       return <div>Whoopsie!</div>
   }
